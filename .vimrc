@@ -10,6 +10,8 @@ call plug#begin('~/.vim/plugged')
  Plug 'junegunn/fzf.vim'
  Plug 'Raimondi/delimitMate'
  Plug 'tpope/vim-fugitive'
+ Plug 'suan/vim-instant-markdown'
+ Plug 'psliwka/vim-smoothie'
 
 
 
@@ -46,7 +48,6 @@ autocmd FileType nerdtree nnoremap <buffer> e j
 autocmd FileType nerdtree nnoremap <buffer> i k
 autocmd FileType nerdtree nnoremap <buffer> o l
 
-
 " Window navigation with leader + neio
 nnoremap <leader>n <C-w>h
 nnoremap <leader>e <C-w>j
@@ -81,6 +82,7 @@ set nowrap
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set mouse=a
 
 " Split window horizontally (top/bottom) with <leader>-s
 nnoremap <leader>s :split<CR>
@@ -123,6 +125,3 @@ let g:lightline = {
 
 " Refresh lightline on git events
 autocmd User FugitiveIndexChanged,User FugitiveStatusChanged,User FugitiveFileChanged call lightline#update()
-
-
-
