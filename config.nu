@@ -7,6 +7,7 @@ $env.config.buffer_editor = "vim"
 
 # Alias
 alias z = cd
+
 def cl [] {
   clear
   ls
