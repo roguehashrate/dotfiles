@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-source ~/.tokyonight_colors.sh
 
 iatest=$(expr index "$-" i)
 #######################################################
@@ -52,9 +51,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-# Kitty Term Support
-export PATH="$HOME/.local/kitty.app/bin:$PATH"
-
 # Imports for programming languages
 
 # PYTHON SUPPORT
@@ -62,19 +58,10 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # GO SUPPORT
 export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$HOME/go/bin
-export PATH="$PATH:$(go env GOPATH)/bin"
 
 # NIM SUPPORT
 export PATH=/home/libertyimp/.nimble/bin:$PATH
 export PKG_CONFIG_PATH=/usr/bin/pkg-config
-
-# FLUTTER SUPPORT
-export PATH=~/code/flutter/bin:$PATH
-
-# JAVA SUPPORT
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-export PATH=$JAVA_HOME/bin:$PATH
 
 # ODIN SUPPORT
 export PATH="$HOME/Odin:$PATH"
@@ -153,6 +140,9 @@ alias hlp='less ~/.bashrc_help'
 alias da='date "+%Y-%m-%d %A %T %Z"'
 
 # Alias's to modified commands
+alias vpnup="doas wg-quick up /etc/wireguard/us-chi-wg-202.conf"
+alias vpndown="doas wg-quick down /etc/wireguard/us-chi-wg-202.conf"
+
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='trash -v'
@@ -180,7 +170,7 @@ alias la='ls -A --color=auto'
 alias l='ls -CF --color=auto'
 alias cl='clear && fastfetch'
 alias ed='micro'
-alias cat='batcat'
+alias cat='bat'
 
 # alias chmod commands
 alias mx='chmod a+x'
