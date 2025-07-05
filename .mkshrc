@@ -1,0 +1,115 @@
+# ── Fastfetch on startup ──────────────────────────────────────────────────────
+if [ -f /usr/bin/fastfetch ]; then
+    fastfetch
+fi
+
+# ── Language ───────────────────────────────────────────────────────────────────
+export LANG=en_US.UTF-8
+
+# ── Nord theme color codes (using proper escape) ──────────────────────────────
+ESC=$'\033'
+NORD_BLUE="${ESC}[38;5;109m"
+NORD_GREEN="${ESC}[38;5;108m"
+NORD_RED="${ESC}[38;5;167m"
+NORD_WHITE="${ESC}[38;5;188m"
+RESET="${ESC}[0m"
+
+# ── Prompt function ─────────────────────────────────────────────────────────────
+build_prompt() {
+    local last=$?
+    local user_path gitinfo status
+
+    # Git info
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        branch=$(git symbolic-ref --short HEAD 2>/dev/null || git describe --tags --always)
+        if git diff --quiet 2>/dev/null && git diff --cached --quiet 2>/dev/null; then
+            gitinfo="${NORD_WHITE}[${branch} ${NORD_GREEN}*${NORD_WHITE}]${RESET}"
+        else
+            gitinfo="${NORD_WHITE}[${branch} ${NORD_RED}!${NORD_WHITE}]${RESET}"
+        fi
+    else
+        gitinfo=""
+    fi
+
+    # Short path
+    case "$PWD" in
+        "$HOME") user_path="~" ;;
+        "$HOME"/*) user_path="~/${PWD#$HOME/}" ;;
+        *) user_path="$PWD" ;;
+    esac
+
+    # Exit status
+    if [ $last -eq 0 ]; then
+        status="${NORD_GREEN}*${RESET}"
+    else
+        status="${NORD_RED}! $last${RESET}"
+    fi
+
+    # Set prompt
+    PS1="${NORD_WHITE}╭─{ ${NORD_BLUE}${USER}${RESET} } at { ${NORD_BLUE}${user_path}${RESET} } ${gitinfo}
+${NORD_WHITE}╰─▶ ${status} "
+}
+
+# ── Update prompt after each command (fallback safe method) ────────────────────
+build_prompt
+
+# ── Override cd to list and refresh prompt ─────────────────────────────────────
+cd() {
+    if [ -n "$1" ]; then
+        builtin cd "$@" && ls
+    else
+        builtin cd ~ && ls
+    fi
+    build_prompt
+}
+
+# ── Override z (zoxide) ────────────────────────────────────────────────────────
+z() {
+    builtin cd "$@" && ls
+    build_prompt
+}
+
+# ── zoxide interactive navigation ──────────────────────────────────────────────
+zi() {
+    local dir
+    dir=$(zoxide query --interactive) || return
+    [ -n "$dir" ] && cd "$dir"
+}
+
+# ── History ─────────────────────────────────────────────────────────────────────
+HISTFILE=~/.mksh_history
+HISTSIZE=1000
+SAVEHIST=1000
+
+# ── Paths ──────────────────────────────────────────────────────────────────────
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin"
+
+# ── Editor ─────────────────────────────────────────────────────────────────────
+export EDITOR=vim
+export VISUAL=vim
+
+# ── VPN Aliases ────────────────────────────────────────────────────────────────
+alias vpnup="doas wg-quick up /etc/wireguard/us-chi-wg-202.conf"
+alias vpndown="doas wg-quick down /etc/wireguard/us-chi-wg-202.conf"
+
+# ── General Aliases ────────────────────────────────────────────────────────────
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='trash -v'
+alias mkdir='mkdir -p'
+alias ping='ping -c 10'
+alias less='less -R'
+alias cat='bat'
+alias cl='clear && fastfetch'
+
+# ── Directory Shortcuts ────────────────────────────────────────────────────────
+alias home='cd ~'
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+# ── chmod helper ───────────────────────────────────────────────────────────────
+alias mx='chmod a+x'
