@@ -78,8 +78,8 @@ if [[ $iatest -gt 0 ]]; then bind "set completion-ignore-case on"; fi
 if [[ $iatest -gt 0 ]]; then bind "set show-all-if-ambiguous On"; fi
 
 # Set the default editor
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=nvim
+export VISUAL=nvim
 
 # To have colors for ls and all grep commands such as grep, egrep and zgrep
 export CLICOLOR=1
@@ -149,6 +149,7 @@ alias rm='trash -v'
 alias mkdir='mkdir -p'
 alias ping='ping -c 10'
 alias less='less -R'
+alias pdf='mupdf-gl'
 
 # Change directory aliases
 alias home='cd ~'

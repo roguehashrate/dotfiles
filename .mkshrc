@@ -86,8 +86,8 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin"
 
 # ── Editor ─────────────────────────────────────────────────────────────────────
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=nvim
+export VISUAL=nvim
 
 # ── VPN Aliases ────────────────────────────────────────────────────────────────
 alias vpnup="doas wg-quick up /etc/wireguard/us-chi-wg-202.conf"
@@ -102,6 +102,9 @@ alias ping='ping -c 10'
 alias less='less -R'
 alias cat='bat'
 alias cl='clear && fastfetch'
+alias vim='nvim'
+alias pdf='mupdf-gl'
+alias diskuse='ncdu'
 
 # ── Directory Shortcuts ────────────────────────────────────────────────────────
 alias home='cd ~'
