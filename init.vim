@@ -18,7 +18,8 @@ call plug#begin('~/.vim/plugged')
  Plug 'hrsh7th/cmp-nvim-lsp'
  Plug 'neovim/nvim-lspconfig'
  Plug 'ziglang/zig.vim'
-
+ Plug 'nvim-lua/plenary.nvim'
+ Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
 " LSP zig
@@ -131,6 +132,26 @@ nnoremap <leader>O :vertical resize +2<CR>
 set laststatus=2       " Always show statusline
 set noshowmode         " Lightline shows mode
 
+" Telescope bindings
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Telescope stay in the same dir unless given a full dir path
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    cwd = vim.fn.getcwd(),  -- Always use the current directory
+    -- optional: disable preview pane
+    previewer = false,
+    -- optional: use dropdown layout
+    layout_strategy = 'vertical',
+  }
+}
+EOF
+
+" Lightline
 let g:lightline = {
   \ 'colorscheme': 'nord',
   \ 'component_function': {

@@ -51,19 +51,14 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-# Imports for programming languages
-
-# PYTHON SUPPORT
 export PATH="$HOME/.local/bin:$PATH"
-
-# GO SUPPORT
+export PATH="$HOME/go/bin:$PATH"
+export PATH="/usr/bin/ruby:$PATH"
+export PATH="/usr/bin/gem:$PATH"
+export PATH="/home/roguehashrate/.local/share/gem/ruby/3.4.0/bin:$PATH"
+export PATH="/usr/bin:$PATH"
+export PATH="$PATH:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin"
 export PATH=$PATH:/usr/local/go/bin
-
-# NIM SUPPORT
-export PATH=/home/libertyimp/.nimble/bin:$PATH
-export PKG_CONFIG_PATH=/usr/bin/pkg-config
-
-# ODIN SUPPORT
 export PATH="$HOME/Odin:$PATH"
 
 
@@ -150,6 +145,8 @@ alias mkdir='mkdir -p'
 alias ping='ping -c 10'
 alias less='less -R'
 alias pdf='mupdf-gl'
+alias zig-build='zig build-exe -lc -I/usr/include -lraylib -lglfw -lm -ldl -lpthread'
+
 
 # Change directory aliases
 alias home='cd ~'
@@ -623,6 +620,8 @@ if [[ $- == *i* ]]; then
 fi
 
 export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:/.local/share/flatpak/exports/bin"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
@@ -632,9 +631,3 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 exec startx
 
 fi
-
-
-
-
-# opencode
-export PATH=/home/libertyimp/.opencode/bin:$PATH

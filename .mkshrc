@@ -83,7 +83,13 @@ SAVEHIST=1000
 
 # ── Paths ──────────────────────────────────────────────────────────────────────
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="/usr/bin/ruby:$PATH"
+export PATH="/usr/bin/gem:$PATH"
+export PATH="/home/roguehashrate/.local/share/gem/ruby/3.4.0/bin:$PATH"
+export PATH="/usr/bin:$PATH"
 export PATH="$PATH:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin"
+
 
 # ── Editor ─────────────────────────────────────────────────────────────────────
 export EDITOR=nvim
@@ -95,6 +101,7 @@ alias vpndown="doas wg-quick down /etc/wireguard/us-chi-wg-202.conf"
 
 # ── General Aliases ────────────────────────────────────────────────────────────
 alias cp='cp -i'
+alias ll='ls -l'
 alias mv='mv -i'
 alias rm='trash -v'
 alias mkdir='mkdir -p'
@@ -104,7 +111,7 @@ alias cat='bat'
 alias cl='clear && fastfetch'
 alias vim='nvim'
 alias pdf='mupdf-gl'
-alias diskuse='ncdu'
+alias zig-build='zig build-exe -lc -I/usr/include -lraylib -lglfw -lm -ldl -lpthread'
 
 # ── Directory Shortcuts ────────────────────────────────────────────────────────
 alias home='cd ~'
