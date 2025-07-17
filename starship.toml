@@ -81,7 +81,7 @@ format = '[[ $symbol ($version) ](fg:#d75f5f bg:#1e222a)]($style)'
 # ─────────────────────────────
 [time]
 disabled = false
-time_format = "%H:%M"
+time_format = "%I:%M"
 style = "bg:#1b1d23"
 format = '[[  $time ](fg:#888caa bg:#1b1d23)]($style)'
 
