@@ -40,6 +40,19 @@
               (when (fboundp 'evil-normalize-keymaps)
                 (evil-normalize-keymaps)))))
 
+(after! magit
+  (evil-define-key 'normal magit-status-mode-map
+    "n" 'evil-next-line
+    "e" 'evil-previous-line
+    "i" 'evil-next-visual-line
+    "o" 'evil-previous-line)
+  (evil-define-key 'normal magit-log-mode-map
+    "n" 'evil-next-line
+    "e" 'evil-previous-line)
+  (evil-define-key 'normal magit-diff-mode-map
+    "n" 'evil-next-line
+    "e" 'evil-previous-line))
+
 (setq org-directory "~/org/")
 (setq org-modern-table-vertical 1)
 (setq org-modern-table t)
