@@ -1,17 +1,44 @@
 (setq doom-font (font-spec :family "JetBrains Mono" :size 15))
 
 (after! evil
-  (map! :n "n" #'evil-backward-char
+
+  (dolist (map '(evil-normal-state-map
+                 evil-visual-state-map
+                 evil-motion-state-map))
+    (define-key (symbol-value map) (kbd "o") nil)
+    (define-key (symbol-value map) (kbd "O") nil)
+    (define-key (symbol-value map) (kbd "i") nil))
+
+  (map! :m "n" #'evil-backward-char
+        :m "e" #'evil-next-line
+        :m "i" #'evil-previous-line
+        :m "o" #'evil-forward-char
+
+        :n "n" #'evil-backward-char
         :n "e" #'evil-next-line
         :n "i" #'evil-previous-line
-        :n "o" #'evil-forward-char)
+        :n "o" #'evil-forward-char
 
-  (map! :v "n" #'evil-backward-char
+        :v "n" #'evil-backward-char
         :v "e" #'evil-next-line
         :v "i" #'evil-previous-line
         :v "o" #'evil-forward-char)
 
-  (define-key evil-normal-state-map (kbd "gi") #'evil-insert-state))
+  (map! :n "gi" #'evil-insert-state
+        :n "gI" #'evil-open-below))
+
+(after! evil-org
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-define-key 'normal evil-org-mode-map (kbd "o") #'evil-forward-char)
+              (evil-define-key 'normal evil-org-mode-map (kbd "O") nil)
+              (evil-define-key 'visual evil-org-mode-map (kbd "o") #'evil-forward-char)
+              (evil-define-key 'visual evil-org-mode-map (kbd "O") nil)
+              (evil-define-key 'normal evil-org-mode-map (kbd "gi") #'evil-insert-state)
+              (evil-define-key 'normal evil-org-mode-map (kbd "gI") #'evil-open-below)
+              (evil-define-key 'visual evil-org-mode-map (kbd "i") #'evil-previous-line)
+              (when (fboundp 'evil-normalize-keymaps)
+                (evil-normalize-keymaps)))))
 
 (setq org-directory "~/org/")
 (setq org-modern-table-vertical 1)
@@ -35,6 +62,12 @@
 (map! :leader
       :desc "Eshell" "e" #'eshell)
 
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+(defun my/apply-frame-settings (frame)
+  (with-selected-frame frame
+    (set-frame-parameter frame 'fullscreen 'maximized)
+    (set-frame-parameter frame 'alpha-background 95)))
+(add-hook 'after-make-frame-functions #'my/apply-frame-settings)
+
 (setq display-line-numbers t)
 (setq confirm-kill-emacs nil)
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
