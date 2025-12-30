@@ -1,5 +1,5 @@
 # .bashrc
-
+fastfetch
 # Source global definitions
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
@@ -26,6 +26,10 @@ export BAT_PAGER='less'
 
 # ALIAS
 alias vim="nvim"
+alias ls="exa --icons --group-directories-first"
+alias ll="exa -lh --icons --git"
+alias la="exa -lha --icons --git"
+
 
 # PATH
 . "$HOME/.cargo/env"
@@ -41,8 +45,5 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
+eval "$(starship init bash)"
 eval "$(zoxide init bash)"
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
