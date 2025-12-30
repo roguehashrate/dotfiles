@@ -12,27 +12,11 @@ call plug#begin('~/.vim/plugged')
  Plug 'suan/vim-instant-markdown'
  Plug 'psliwka/vim-smoothie'
  Plug 'arcticicestudio/nord-vim'
- Plug 'williamboman/mason.nvim'
- Plug 'williamboman/mason-lspconfig.nvim'
  Plug 'hrsh7th/nvim-cmp'
  Plug 'hrsh7th/cmp-nvim-lsp'
- Plug 'neovim/nvim-lspconfig'
- Plug 'ziglang/zig.vim'
  Plug 'nvim-lua/plenary.nvim'
  Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
-
-" LSP zig
-lua << EOF
-require("mason").setup()
-require("mason-lspconfig").setup({
-  ensure_installed = {}, -- don't auto-install zls
-})
-
-require("lspconfig").zls.setup {
-  cmd = { "zls" }, -- uses your system's /usr/bin/zls
-}
-EOF
 
 " Remap movement keys (normal mode)
 nnoremap n h

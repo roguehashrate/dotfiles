@@ -29,6 +29,7 @@ alias vim="nvim"
 alias ls="exa --icons --group-directories-first"
 alias ll="exa -lh --icons --git"
 alias la="exa -lha --icons --git"
+alias cl-"clear && fastfetch"
 
 
 # PATH
