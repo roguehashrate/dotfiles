@@ -1,5 +1,3 @@
-# .zshrc
-
 # Run fastfetch on shell start
 fastfetch
 
@@ -23,9 +21,42 @@ if [[ -d ~/.bashrc.d ]]; then
 fi
 unset rc
 
+# History
+HISTFILE="$HOME/.config/zsh/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+setopt APPEND_HISTORY
+
 # Environment
 export PAGER='bat'
 export BAT_PAGER='less'
+
+# Vim mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# Normal mode movements
+bindkey -a 'n' vi-backward-char
+bindkey -a 'e' vi-down-line-or-history
+bindkey -a 'i' vi-up-line-or-history
+bindkey -a 'o' vi-forward-char
+
+# Enter insert mode
+bindkey -a 'gi' vi-insert
+
+# Enter visual mode
+bindkey -a 'v' visual-mode
+
+# Visual mode movements
+bindkey -M visual 'n' vi-backward-char
+bindkey -M visual 'e' down-line-or-history
+bindkey -M visual 'i' up-line-or-history
+bindkey -M visual 'o' vi-forward-char
+
+# Visual mode operations
+bindkey -M visual 'y' vi-yank
+bindkey -M visual 'd' vi-delete
+bindkey -M visual 'c' vi-change
 
 # Aliases
 alias vim="nvim"
@@ -36,14 +67,14 @@ alias la="exa -lha --icons --git"
 alias cl="clear && fastfetch"
 alias sudo="echo Please try again, we use 'doas' around here"
 
-# Rust
-if [[ -f "$HOME/.cargo/env" ]]; then
-  source "$HOME/.cargo/env"
-fi
+# Cargo
+. "$HOME/.cargo/env"
 
-# Additional PATH entries
-export PATH="$PATH:/usr/local/bin"
-export PATH="$HOME/.scripts:$PATH"
+# Consolidated PATH setup
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin"
+
+#OpenCode
+export PATH="$HOME/.opencode/bin:$PATH"
 
 # Prompt
 eval "$(starship init zsh)"
