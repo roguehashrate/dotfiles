@@ -8,6 +8,9 @@ elif [[ -f /etc/bashrc ]]; then
   source /etc/bashrc
 fi
 
+# SSH
+[ -f ~/.ssh/agent.env ] && source ~/.ssh/agent.env
+
 # User-specific PATH
 if [[ ":$PATH:" != *":$HOME/.local/bin:$HOME/bin:"* ]]; then
   export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
